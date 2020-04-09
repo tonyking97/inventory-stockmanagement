@@ -1,2 +1,1 @@
-# inventory-stockmanagement
-Smart inventory for stock management 
+Smart Inventory to manage all stocks.

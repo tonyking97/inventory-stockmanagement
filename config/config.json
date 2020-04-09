@@ -1,0 +1,4 @@
+{
+  "DB_Url" : "mongodb://localhost:27017",
+  "DB_Name" : "inventory"
+}
