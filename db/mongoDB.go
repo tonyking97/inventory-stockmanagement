@@ -27,7 +27,7 @@ func Init() {
 	}
 }
 
-func categoryCollectionInit() *mongo.Collection {
+func CategoryCollectionInit() *mongo.Collection {
 	if categoryCollection == nil {
 		categoryCollection = client.Database(config.DB_Name).Collection("category")
 	}
