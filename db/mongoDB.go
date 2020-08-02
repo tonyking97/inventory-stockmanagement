@@ -13,6 +13,9 @@ var client *mongo.Client = nil
 var Ctx = context.TODO()
 
 var categoryCollection *mongo.Collection = nil
+var itemsCollection *mongo.Collection = nil
+var stocksCollection *mongo.Collection = nil
+var costsCollection *mongo.Collection = nil
 
 func Init() {
 	if client == nil {
@@ -32,4 +35,25 @@ func CategoryCollectionInit() *mongo.Collection {
 		categoryCollection = client.Database(config.DB_Name).Collection("category")
 	}
 	return categoryCollection
+}
+
+func ItemsCollectionInit() *mongo.Collection {
+	if itemsCollection == nil {
+		itemsCollection = client.Database(config.DB_Name).Collection("items")
+	}
+	return itemsCollection
+}
+
+func StocksCollectionInit() *mongo.Collection {
+	if stocksCollection == nil {
+		stocksCollection = client.Database(config.DB_Name).Collection("stocks")
+	}
+	return stocksCollection
+}
+
+func CostsCollectionInit() *mongo.Collection {
+	if costsCollection == nil {
+		costsCollection = client.Database(config.DB_Name).Collection("costs")
+	}
+	return costsCollection
 }

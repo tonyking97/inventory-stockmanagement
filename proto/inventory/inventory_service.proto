@@ -11,6 +11,8 @@ message PingResponse {
     string pong = 2;
 }
 
+//Categories
+
 message AddCategoryRequest {
     string name = 1;
     string description = 2;
@@ -25,7 +27,22 @@ message AddCategoryResponse {
     string error = 2;
 }
 
-message CategoryName {
+message EditCategoryRequest {
+    string id = 1;
+    string name = 2;
+    string description = 3;
+    string parent = 4;
+    string unit = 5;
+    string manufacturer = 6;
+    string brand = 7;
+}
+
+message EditCategoryResponse {
+    bool success = 1;
+    string error = 2;
+}
+
+message Category {
     string id = 1;
     string name = 2;
 }
@@ -36,11 +53,134 @@ message GetCategoryRequest {
 
 message GetCategoryResponse {
     bool success = 1;
-    repeated CategoryName categoryName = 2;
+    repeated Category category = 2;
+}
+
+//Items
+
+message AddItemRequest {
+    string name = 1;
+    bool status = 2;
+    float size = 3;
+    string sku = 4;
+    string barCode = 5;
+    string category = 6;
+    string unit = 7;
+    bool salesInformation = 8;
+    float mrp = 9;
+    float costPrice = 10;
+    float sellingPrice = 11;
+    bool trackInventory = 12;
+    float stock = 13;
+    float reorderPoint = 14;
+    string preferredVendor = 15;
+    string createdBy = 16;
+}
+
+message AddItemResponse {
+    bool success = 1;
+    string error = 2;
+}
+
+message EditItemRequest {
+    string id = 1;
+    string name = 2;
+    bool status = 3;
+    float size = 4;
+    string sku = 5;
+    string barCode = 6;
+    string category = 7;
+    string unit = 8;
+    float reorderPoint = 9;
+    string preferredVendor = 10;
+}
+
+message EditItemResponse {
+    bool success = 1;
+    string error = 2;
+}
+
+message Item {
+    string id = 1;
+    string name = 2;
+}
+
+message GetItemRequest {
+    string id = 1;
+}
+
+message GetItemResponse {
+    bool success = 1;
+    repeated Item item = 2;
+}
+
+//Stock Adjustments
+
+message GetQuantityAdjustmentRequest {
+    string id = 1;
+}
+
+message GetQuantityAdjustmentResponse {
+    bool success = 1;
+    string error = 2;
+    float quantityAvailable = 3;
+    string unit = 4;
+}
+
+message GetValueAdjustmentRequest {
+    string id = 1;
+}
+
+message GetValueAdjustmentResponse {
+    bool success = 1;
+    string error = 2;
+    float currentSellingPrice = 3;
+    float currentCostPrice = 4;
+    float currentMrp = 5;
+}
+
+message AdjustQuantityRequest {
+    string id = 1;
+    int64 date = 2;
+    int64 referenceNumber = 3;
+    float newQuantity = 4;
+    float quantityAdjusted = 5;
+    string reason = 6;
+}
+
+message AdjustQuantityResponse {
+    bool success = 1;
+    string error = 2;
+}
+
+message AdjustValueRequest {
+    string id = 1;
+    int64 date = 2;
+    int64 referenceNumber = 3;
+    float newSellingPrice = 4;
+    float adjustedSellingPrice = 5;
+    float newCostPrice = 6;
+    float adjustedCostPrice = 7;
+    float newMrp = 8;
+    float adjustedMrp = 9;
+    string reason = 10;
+}
+
+message AdjustValueResponse {
+    bool success = 1;
+    string error = 2;
 }
 
 service InventoryService {
     rpc Ping(PingRequest) returns (PingResponse) {};
     rpc AddCategory(AddCategoryRequest) returns (AddCategoryResponse) {};
+    rpc EditCategory(EditCategoryRequest) returns (EditCategoryResponse) {};
     rpc GetCategory(GetCategoryRequest) returns (GetCategoryResponse) {};
+    rpc AddItem(AddItemRequest) returns (AddItemResponse) {};
+    rpc EditItem(EditItemRequest) returns (EditItemResponse) {};
+    rpc GetItem(GetItemRequest) returns (GetItemResponse) {};
+    rpc GetQuantityAdjustment(GetQuantityAdjustmentRequest) returns (GetQuantityAdjustmentResponse) {};
+    rpc GetValueAdjustment(GetValueAdjustmentRequest) returns (GetValueAdjustmentResponse) {};
+    rpc AdjustQuantity(AdjustQuantityRequest) returns (AdjustQuantityResponse) {};
+    rpc AdjustValue(AdjustValueRequest) returns (AdjustValueResponse) {};
 }
